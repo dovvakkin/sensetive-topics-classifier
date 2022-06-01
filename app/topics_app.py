@@ -46,7 +46,7 @@ def get_prediction_and_explaination(sent, tokenizer, model, cls_explainer):
         truncation=True,
         return_token_type_ids=False)
 
-    tokens_ids, mask = torch.tensor(tokenized['input_ids']),
+    tokens_ids, mask = torch.tensor(tokenized['input_ids']),\
                        torch.tensor(tokenized['attention_mask'])
 
     with torch.no_grad():
