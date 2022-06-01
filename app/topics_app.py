@@ -24,7 +24,7 @@ def init_model():
 
 @st.cache(allow_output_mutation=True)
 def init_target_mapping():
-    with open("id2topic.json") as f:
+    with open("app/id2topic.json") as f:
         target_vaiables_id2topic_dict = json.load(f)
 
     return target_vaiables_id2topic_dict
