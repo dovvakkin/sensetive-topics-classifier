@@ -1,3 +1,2 @@
 transformers-interpret==0.6.0
-transfortmers==4.19.2
-
+transformers==4.19.2
