@@ -1,9 +1,10 @@
 import json
 import torch
 
+import numpy as np
 import streamlit as st
-from annotated_text import annotated_text
 
+from annotated_text import annotated_text
 from transformers_interpret import SequenceClassificationExplainer
 from transformers import BertTokenizer, BertForSequenceClassification
 

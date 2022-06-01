@@ -2,3 +2,4 @@ transformers-interpret==0.6.0
 transformers==4.19.2
 streamlit==1.9.2
 st-annotated-text==3.0.0
+numpy==1.22.4
