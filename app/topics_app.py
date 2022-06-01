@@ -9,6 +9,7 @@ from transformers_interpret import SequenceClassificationExplainer
 from transformers import BertTokenizer, BertForSequenceClassification
 
 MODEL_NAME = 'Skoltech/russian-sensitive-topics'
+WHITE_ATTENTION_THRESHOLD = 0.1
 
 @st.cache(allow_output_mutation=True)
 def init_model():
@@ -61,6 +62,25 @@ def get_prediction_and_explaination(sent, tokenizer, model, cls_explainer, targe
            word_attributions
 
 
+def get_attention_annotation(word_attrs):
+    annotations = []
+    "rgb(255, {}, 255)"
+
+    for word, score in word_attrs:
+        if word == '[CLS]' or word == '[SEP]':
+            continue
+
+        if score < WHITE_ATTENTION_THRESHOLD:
+            annotations.append(word)
+            continue
+
+        color = int((1 - score) * 255)
+
+        annotations.append((word, "{:.2f}".format(score), "rgb(255, {}, 255)".format(color)))
+
+    return annotations
+
+
 def main():
     tokenizer, model, cls_explainer = init_model()
     target_vaiables_id2topic_dict = init_target_mapping()
@@ -83,6 +103,11 @@ def main():
                                                             cls_explainer,
                                                             target_vaiables_id2topic_dict)
         st.write(topic)
+
+        st.subheader('Attention visualization')
+
+        attention_annotation = get_attention_annotation(word_attrs)
+        annotated_text(*attention_annotation)
 
 
 if __name__ == '__main__':
