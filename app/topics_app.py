@@ -57,7 +57,7 @@ def get_prediction_and_explaination(sent, tokenizer, model, cls_explainer, targe
 
     return adjust_multilabel(model_output['logits'],
                              target_vaiables_id2topic_dict,
-                             is_pred = True),
+                             is_pred = True),\
            word_attributions
 
 
