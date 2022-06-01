@@ -7,7 +7,7 @@ from annotated_text import annotated_text
 from transformers_interpret import SequenceClassificationExplainer
 from transformers import BertTokenizer, BertForSequenceClassification
 
-MODEL = 'Skoltech/russian-sensitive-topics'
+MODEL_NAME = 'Skoltech/russian-sensitive-topics'
 
 @st.cache(allow_output_mutation=True)
 def init_model():
