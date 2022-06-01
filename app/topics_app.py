@@ -30,7 +30,7 @@ def init_target_mapping():
     return target_vaiables_id2topic_dict
 
 
-def adjust_multilabel(y, is_pred = False):
+def adjust_multilabel(y, target_vaiables_id2topic_dict, is_pred = False):
     y_adjusted = []
     for y_c in y:
         y_test_curr = [0]*19
@@ -39,7 +39,7 @@ def adjust_multilabel(y, is_pred = False):
     return y_c
 
 
-def get_prediction_and_explaination(sent, tokenizer, model, cls_explainer):
+def get_prediction_and_explaination(sent, tokenizer, model, cls_explainer, target_vaiables_id2topic_dict):
     tokenized = tokenizer.batch_encode_plus(
         [sent],
         max_length = 512,
@@ -55,11 +55,15 @@ def get_prediction_and_explaination(sent, tokenizer, model, cls_explainer):
 
     word_attributions = cls_explainer(sent)
 
-    return adjust_multilabel(model_output['logits'], is_pred = True), word_attributions
+    return adjust_multilabel(model_output['logits'],
+                             target_vaiables_id2topic_dict,
+                             is_pred = True),
+           word_attributions
 
 
 def main():
     tokenizer, model, cls_explainer = init_model()
+    target_vaiables_id2topic_dict = init_target_mapping()
 
     st.title('Sensitive topics detection')
     with st.form('Form1'):
@@ -73,7 +77,11 @@ def main():
     if submit_button:
         st.caption('Result:')
 
-        topic, word_attrs = get_prediction_and_explaination(input_text, tokenizer, model, cls_explainer)
+        topic, word_attrs = get_prediction_and_explaination(input_text,
+                                                            tokenizer,
+                                                            model,
+                                                            cls_explainer,
+                                                            target_vaiables_id2topic_dict)
         st.write(topic)
 
 
