@@ -64,19 +64,18 @@ def get_prediction_and_explaination(sent, tokenizer, model, cls_explainer, targe
 
 def get_attention_annotation(word_attrs):
     annotations = []
-    "rgb(255, {}, 255)"
 
     for word, score in word_attrs:
         if word == '[CLS]' or word == '[SEP]':
             continue
 
         if score < WHITE_ATTENTION_THRESHOLD:
-            annotations.append(word)
+            annotations.append(" " + word)
             continue
 
-        color = int((1 - score) * 255)
+        color = int((1 - score) * 155 + 100)
 
-        annotations.append((word, "{:.2f}".format(score), "rgb(255, {}, 255)".format(color)))
+        annotations.append((word, " {:.2f}".format(score), "rgb(255, {}, 255)".format(color)))
 
     return annotations
 
@@ -87,10 +86,7 @@ def main():
 
     st.title('Sensitive topics detection')
     with st.form('Form1'):
-        input_text = st.text_input('Введите текст', value='Сегодня хороший день')
-        #method = st.selectbox(label='Выберите классификатор',
-        #                      options=['TFIDF + Logistic Regression', 'Fine-tuned BERT'])
-        #st.caption('Выберите классификатор:')
+        input_text = st.text_input('Enter text', value='Надо было брать дробовики')
 
         submit_button = st.form_submit_button(label='Find sensititve topics')
 
@@ -112,18 +108,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# annotated_text(
-#     "This ",
-#     ("is", "verb", "#8ef"),
-#     " some ",
-#     ("annotated", "adj", "#faa"),
-#     ("text", "noun", "#afa"),
-#     " for those of ",
-#     ("you", "pronoun", "#fea"),
-#     " who ",
-#     ("like", "verb", "#8ef"),
-#     " this sort of ",
-#     ("thing", "noun", "#afa"),
-#     "."
-# )
