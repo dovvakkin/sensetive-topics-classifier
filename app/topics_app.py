@@ -98,6 +98,10 @@ def main():
                                                             model,
                                                             cls_explainer,
                                                             target_vaiables_id2topic_dict)
+        if topic == 'none':
+            st.write('No sensitive topics in given sentence')
+            return
+
         st.write(topic)
 
         st.subheader('Attention visualization')
