@@ -86,7 +86,7 @@ def main():
 
     st.title('Sensitive topics detection')
 
-    st.markdown('This app detects sensitive topics for text in russian. Possible sensitive topics are: __offline_crime"online_crime"__, __drugs__,  __gambling__,  __pornography__,  __prostitution__,  __slavery__,  __suicide__,  __terrorism__,  __weapons__,  __body_shaming__,  __politics__,  __racism__,  __religion__,  __sexual_minorities__, __sexism__, __social_injustice__')
+    st.markdown('This app detects sensitive topics for text in russian. Possible sensitive topics are: __offline_crime__, __online_crime__, __drugs__,  __gambling__,  __pornography__,  __prostitution__,  __slavery__,  __suicide__,  __terrorism__,  __weapons__,  __body_shaming__,  __politics__,  __racism__,  __religion__,  __sexual_minorities__, __sexism__, __social_injustice__')
     with st.form('Form1'):
         input_text = st.text_input('Enter text', value='Надо было брать дробовики')
 
